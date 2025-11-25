@@ -1311,6 +1311,7 @@ body {
     padding: 12px 20px;
     font-size: 0.95rem;
     box-sizing: border-box;
+    justify-content: center;
   }
 
   /* ========== CONTACT SECTION MOBILE ========== */
