@@ -401,7 +401,7 @@ section {
   gap: 8px;
   padding: 10px 20px;
   border-radius: 50px;
-  background: linear-gradient(90deg, #86898a, #8e2de2);
+  background: linear-gradient(45deg, rgb(20, 222, 124) 0%, rgb(20, 222, 124) 21%,rgb(25, 190, 119) 21%, rgb(25, 190, 119) 37%,rgb(30, 158, 113) 37%, rgb(30, 158, 113) 46%,rgb(35, 126, 108) 46%, rgb(35, 126, 108) 53%,rgb(39, 94, 103) 53%, rgb(39, 94, 103) 59%,rgb(44, 62, 97) 59%, rgb(44, 62, 97) 77%,rgb(49, 30, 92) 77%, rgb(49, 30, 92) 100%);
   color: #fff;
   text-decoration: none;
   transition: 0.3s;
@@ -501,7 +501,7 @@ section {
 .btn-projects {
   padding: 12px 28px;
   border-radius: 30px;
-  background: linear-gradient(90deg, #86898a, #8e2de2);
+  background: linear-gradient(45deg, rgb(20, 222, 124) 0%, rgb(20, 222, 124) 21%,rgb(25, 190, 119) 21%, rgb(25, 190, 119) 37%,rgb(30, 158, 113) 37%, rgb(30, 158, 113) 46%,rgb(35, 126, 108) 46%, rgb(35, 126, 108) 53%,rgb(39, 94, 103) 53%, rgb(39, 94, 103) 59%,rgb(44, 62, 97) 59%, rgb(44, 62, 97) 77%,rgb(49, 30, 92) 77%, rgb(49, 30, 92) 100%);
   color: #fff;
   font-size: 18px;
   text-decoration: none;
