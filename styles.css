@@ -115,7 +115,7 @@ body {
   left: 30px;
   text-decoration: none;
   background: rgba(0, 255, 255, 0.08);
-  color: #00faff;
+  color: #fff;
   padding: 6px 18px;
   border-radius: 999px;
   display: flex;
@@ -135,7 +135,7 @@ body {
 }
 
 .logo h1:hover {
-  color: #0ff;
+  color: #fff;
   text-shadow: 0 0 8px rgb(0, 225, 255);
 }
 
@@ -163,12 +163,12 @@ body {
 
 .nav-menu a {
   text-decoration: none;
-  color: #0ff;
+  color: #fff;
 }
 
 .nav-menu a:hover {
-  color: #0ff;
-  text-shadow: 0 0 8px #0ff;
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
 }
 
 section {
@@ -902,7 +902,7 @@ body {
 
 .nav-menu a {
   text-decoration: none;
-  color: #0ff;
+  color: #fff;
   transition: 0.25s;
 }
 
