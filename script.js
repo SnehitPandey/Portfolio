@@ -69,7 +69,7 @@ setInterval(spawnComet, cometInterval);
 const typingEl = document.querySelector(".typing");
 
 if (typingEl) {
-  const words = ["Experiences", "Projects", "Skills"];
+  const words = ["Experiences", "Projects", "Resume"];
   let i = 0, j = 0, removing = false;
 
   function typeLoop() {

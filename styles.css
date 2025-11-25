@@ -700,47 +700,32 @@ section {
 /* Large desktops - more space for astronaut */
 @media (min-width: 1400px) {
   .hero-astronaut {
-    width: 340px;
-    left: 50px;
-  }
-
-  .hero-content {
-    margin-left: 420px;
-    max-width: 900px;
+    width: 350px;
+    left: 5%;
   }
 }
 
 /* Medium desktops - balanced layout */
 @media (min-width: 1025px) and (max-width: 1399px) {
   .hero-astronaut {
-    width: 280px;
-    left: 20px;
-  }
-
-  .hero-content {
-    margin-left: 320px;
-    max-width: 750px;
+    width: 300px;
+    left: 3%;
   }
 }
 
 /* Smaller desktops - reduce astronaut size */
 @media (min-width: 769px) and (max-width: 1024px) {
   .hero-astronaut {
-    width: 240px;
-    left: 10px;
-  }
-
-  .hero-content {
-    margin-left: 270px;
-    max-width: 650px;
+    width: 250px;
+    left: 2%;
   }
 
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   .hero-content h2 {
-    font-size: 2rem;
+    font-size: 2.3rem;
   }
 }/* ========================================
    MOBILE RESPONSIVE FIXES - COMPLETE
@@ -772,22 +757,28 @@ body {
   min-height: 100vh;
 }
 
-/* Remove any default scrollbar appearance */
+/* Hide scrollbar completely across all browsers */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0;
+  height: 0;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 255, 0.3);
-  border-radius: 4px;
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 255, 0.5);
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* IE and Edge */
+body {
+  -ms-overflow-style: none;
 }
 
 /* ========== NAVIGATION - DESKTOP & MOBILE ========== */
@@ -925,32 +916,37 @@ body {
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
   z-index: 1;
-  padding-top: 80px;
+  padding: 80px 20px 40px;
+  overflow-x: hidden;
+  overflow: visible;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  margin-left: 320px;
-  margin-right: auto;
-  max-width: 800px;
-  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  width: 100%;
 }
 
 .hero-astronaut {
   position: absolute;
-  left: 2%;
+  left: -70%;
   top: 50%;
   width: 340px;
+  height: auto;
   transform: translateY(-50%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
   animation: floatAstro 6s ease-in-out infinite;
 }
 
@@ -958,6 +954,31 @@ body {
   0% { transform: translateY(-50%) translateX(0); }
   50% { transform: translateY(-55%) translateX(10px); }
   100% { transform: translateY(-50%) translateX(0); }
+}
+
+/* ========== TABLET STYLES (768px - 1024px) ========== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 80px 20px 40px;
+  }
+
+  .hero-astronaut {
+    width: 280px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
 }
 
 /* ========== MOBILE STYLES ========== */
@@ -1109,58 +1130,60 @@ body {
   /* ========== HERO MOBILE ========== */
   .hero {
     min-height: 100vh;
-    height: auto;
+    display: flex;
+    flex-direction: column;
     padding: 100px 20px 60px;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
   }
 
   .hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 15px;
-    margin-top: 20px;
     width: 100%;
     max-width: 100%;
+    padding: 0 10px;
   }
 
-  /* Astronaut ABOVE name */
+  /* Show astronaut on mobile above name */
   .hero-astronaut {
     position: relative;
-    left: 0;
-    top: 0;
-    width: 200px;
+    left: auto;
+    top: auto;
+    width: 220px;
+    height: auto;
+    margin-bottom: 20px;
     transform: none;
-    opacity: 1;
-    z-index: 2;
-    order: -1;
-    margin-bottom: -10px;
     animation: floatMobile 5s ease-in-out infinite;
+    order: -1;
   }
 
   @keyframes floatMobile {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-20px); }
   }
 
   .hero-content h1 {
     font-size: 2rem;
-    margin-bottom: 8px;
-    order: 1;
+    margin: 0;
+    padding: 0;
   }
 
   .hero-content p {
     font-size: 0.9rem;
     padding: 0 10px;
-    order: 2;
+    margin: 5px 0;
     line-height: 1.4;
   }
 
   .hero-content h2 {
-    font-size: 1.6rem;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    order: 3;
+    font-size: 1.5rem;
+    margin: 10px 0 20px 0;
+    padding: 0 10px;
   }
 
   .socials {
