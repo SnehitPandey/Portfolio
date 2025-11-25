@@ -89,7 +89,7 @@ body {
 
 .hero-astronaut {
   position: absolute;
-  left: 2%;
+  left: 5%;
   top: 45%;
   width: 340px;
   transform: translateY(-50%);
@@ -697,7 +697,52 @@ section {
   z-index: 5;
 }
 
-/* ========================================
+/* Large desktops - more space for astronaut */
+@media (min-width: 1400px) {
+  .hero-astronaut {
+    width: 340px;
+    left: 50px;
+  }
+
+  .hero-content {
+    margin-left: 420px;
+    max-width: 900px;
+  }
+}
+
+/* Medium desktops - balanced layout */
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .hero-astronaut {
+    width: 280px;
+    left: 20px;
+  }
+
+  .hero-content {
+    margin-left: 320px;
+    max-width: 750px;
+  }
+}
+
+/* Smaller desktops - reduce astronaut size */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-astronaut {
+    width: 240px;
+    left: 10px;
+  }
+
+  .hero-content {
+    margin-left: 270px;
+    max-width: 650px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content h2 {
+    font-size: 2rem;
+  }
+}/* ========================================
    MOBILE RESPONSIVE FIXES - COMPLETE
    Add to your styles.css or replace mobile section
    ======================================== */
@@ -711,6 +756,7 @@ section {
 html {
   overflow-x: hidden;
   width: 100%;
+  height: 100%;
 }
 
 body {
@@ -723,6 +769,25 @@ body {
   position: relative;
   width: 100%;
   max-width: 100vw;
+  min-height: 100vh;
+}
+
+/* Remove any default scrollbar appearance */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.5);
 }
 
 /* ========== NAVIGATION - DESKTOP & MOBILE ========== */
@@ -734,8 +799,7 @@ body {
   left: 0;
   padding: 20px 30px;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  background: transparent;
 }
 
 .logo {
@@ -873,6 +937,10 @@ body {
 .hero-content {
   position: relative;
   z-index: 2;
+  margin-left: 320px;
+  margin-right: auto;
+  max-width: 800px;
+  padding-left: 20px;
 }
 
 .hero-astronaut {
@@ -1220,7 +1288,6 @@ body {
     padding: 12px 20px;
     font-size: 0.95rem;
     box-sizing: border-box;
-    justify-content: center;
   }
 
   /* ========== CONTACT SECTION MOBILE ========== */
@@ -1363,19 +1430,6 @@ body {
 @media (min-width: 769px) and (max-width: 1024px) {
   section {
     width: 85%;
-  }
-
-  .hero-astronaut {
-    width: 280px;
-    left: 3%;
-  }
-
-  .hero-content h1 {
-    font-size: 3rem;
-  }
-
-  .hero-content h2 {
-    font-size: 2.5rem;
   }
 
   .about-container {
