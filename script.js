@@ -1,9 +1,6 @@
 // 🌌 OPTIMIZED STAR FIELD (Mobile-Responsive)
 function createStars() {
-  // Remove existing stars first
   document.querySelectorAll(".star").forEach(s => s.remove());
-  
-  // Adjust star count based on screen size for performance
   const isMobile = window.innerWidth <= 768;
   const numberOfStars = isMobile ? 100 : 250;
   const pageHeight = document.documentElement.scrollHeight;
@@ -11,28 +8,23 @@ function createStars() {
   for (let i = 0; i < numberOfStars; i++) {
     const star = document.createElement("div");
     star.classList.add("star");
-
     const size = Math.random() * 3 + 1;
     star.style.width = `${size}px`;
     star.style.height = `${size}px`;
     star.style.left = `${Math.random() * 100}vw`;
     star.style.top = `${Math.random() * pageHeight}px`;
     star.style.animationDuration = `${Math.random() * 3 + 1}s`;
-
     document.body.appendChild(star);
   }
 }
 
 window.addEventListener("load", createStars);
 
-// Debounce resize to prevent performance issues
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     createStars();
-    
-    // Close mobile menu on resize to desktop
     if (window.innerWidth > 768) {
       const navToggle = document.querySelector('.nav-toggle');
       const navMenu = document.querySelector('.nav-menu');
@@ -45,36 +37,28 @@ window.addEventListener("resize", () => {
   }, 250);
 });
 
-// ☄️ OPTIMIZED COMETS (Fewer on mobile)
+// ☄️ OPTIMIZED COMETS
 function spawnComet() {
-  // Reduce comet frequency on mobile
   const isMobile = window.innerWidth <= 768;
   if (isMobile && Math.random() > 0.5) return;
-
   const comet = document.createElement("div");
   comet.classList.add("comet");
-
   comet.style.top = Math.random() * window.innerHeight + "px";
   comet.style.left = Math.random() * window.innerWidth + "px";
-
   document.body.appendChild(comet);
   setTimeout(() => comet.remove(), 4000);
 }
 
-// Adjust comet spawn rate based on device
 const cometInterval = window.innerWidth <= 768 ? 4000 : 2500;
 setInterval(spawnComet, cometInterval);
 
 // ⌨️ TYPING TEXT EFFECT
 const typingEl = document.querySelector(".typing");
-
 if (typingEl) {
   const words = ["Experiences", "Projects", "Resume"];
   let i = 0, j = 0, removing = false;
-
   function typeLoop() {
     let word = words[i];
-
     if (!removing) {
       typingEl.textContent = word.slice(0, ++j);
       if (j === word.length) {
@@ -89,15 +73,13 @@ if (typingEl) {
         i = (i + 1) % words.length;
       }
     }
-
     setTimeout(typeLoop, removing ? 90 : 130);
   }
   typeLoop();
 }
 
-// 👀 OPTIMIZED SCROLL-REVEAL ANIMATION (Works both up and down)
+// 👀 SCROLL-REVEAL ANIMATION
 const revealElements = document.querySelectorAll(".reveal");
-
 if (revealElements.length > 0) {
   const isMobile = window.innerWidth <= 768;
   const revealObserver = new IntersectionObserver(
@@ -106,7 +88,6 @@ if (revealElements.length > 0) {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
         } else {
-          // Remove visible class when scrolling back up/down
           entry.target.classList.remove("visible");
         }
       });
@@ -116,17 +97,15 @@ if (revealElements.length > 0) {
       rootMargin: "0px 0px -50px 0px"
     }
   );
-
   revealElements.forEach(el => revealObserver.observe(el));
 }
 
-// ========== HAMBURGER MENU FUNCTIONALITY ==========
+// ========== HAMBURGER MENU ==========
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
 if (navToggle && navMenu) {
-  // Toggle menu on hamburger click
   navToggle.addEventListener('click', (e) => {
     e.stopPropagation();
     navToggle.classList.toggle('active');
@@ -134,7 +113,6 @@ if (navToggle && navMenu) {
     document.body.classList.toggle('menu-open');
   });
 
-  // Close menu when clicking a nav link
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navToggle.classList.remove('active');
@@ -143,7 +121,6 @@ if (navToggle && navMenu) {
     });
   });
 
-  // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     if (navMenu.classList.contains('open')) {
       if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
@@ -154,7 +131,6 @@ if (navToggle && navMenu) {
     }
   });
 
-  // Close menu on ESC key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('open')) {
       navToggle.classList.remove('active');
@@ -164,25 +140,19 @@ if (navToggle && navMenu) {
   });
 }
 
-// 🔗 SMOOTH SCROLL FOR NAVIGATION LINKS
+// 🔗 SMOOTH SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", function (e) {
     const href = this.getAttribute("href");
     if (href === "#" || href === "#home") {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         const offsetTop = target.offsetTop - 80;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth"
-        });
+        window.scrollTo({ top: offsetTop, behavior: "smooth" });
       }
     }
   });
@@ -194,52 +164,53 @@ const navLinksAll = document.querySelectorAll(".nav-menu a");
 
 function highlightNavOnScroll() {
   const scrollY = window.pageYOffset;
+  navLinksAll.forEach(link => {
+    link.style.color = "#00faff";
+    link.style.textShadow = "none";
+  });
 
+  if (scrollY < 100) {
+    const homeLink = document.querySelector('.nav-menu a[href="#home"]');
+    if (homeLink) {
+      homeLink.style.color = "#fff";
+      homeLink.style.textShadow = "0 0 10px #00faff";
+    }
+    return;
+  }
+
+  let currentSection = "";
   sections.forEach(section => {
+    const sectionTop = section.offsetTop - 150;
     const sectionHeight = section.offsetHeight;
-    const sectionTop = section.offsetTop - 100;
-    const sectionId = section.getAttribute("id");
-    
-    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-      navLinksAll.forEach(link => {
-        link.style.color = "#0ff";
-        link.style.textShadow = "none";
-        
-        if (link.getAttribute("href") === `#${sectionId}`) {
-          link.style.color = "#fff";
-          link.style.textShadow = "0 0 8px #0ff";
-        }
-      });
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      currentSection = section.getAttribute("id");
     }
   });
+
+  if (currentSection) {
+    const activeLink = document.querySelector(`.nav-menu a[href="#${currentSection}"]`);
+    if (activeLink) {
+      activeLink.style.color = "#fff";
+      activeLink.style.textShadow = "0 0 10px #00faff";
+    }
+  }
 }
 
 window.addEventListener("scroll", highlightNavOnScroll);
+window.addEventListener("load", highlightNavOnScroll);
+highlightNavOnScroll();
 
-// 📱 TOUCH DEVICE DETECTION AND OPTIMIZATION
+// 📱 TOUCH DEVICE OPTIMIZATION
 function isTouchDevice() {
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0
-  );
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
 }
 
 if (isTouchDevice()) {
   document.body.classList.add("touch-device");
-  
-  const hoverElements = document.querySelectorAll(
-    ".tech-card, .socials .icon, .footer-icon, .info-card"
-  );
-  
+  const hoverElements = document.querySelectorAll(".tech-card, .socials .icon, .footer-icon, .info-card");
   hoverElements.forEach(el => {
-    el.addEventListener("touchstart", function() {
-      this.style.transform = "scale(0.95)";
-    });
-    
-    el.addEventListener("touchend", function() {
-      this.style.transform = "";
-    });
+    el.addEventListener("touchstart", function() { this.style.transform = "scale(0.95)"; });
+    el.addEventListener("touchend", function() { this.style.transform = ""; });
   });
 }
 
@@ -251,19 +222,115 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   });
 }
 
-// 🔄 ORIENTATION CHANGE HANDLER
+// 🔄 ORIENTATION CHANGE
 window.addEventListener("orientationchange", () => {
-  setTimeout(() => {
-    createStars();
-  }, 200);
+  setTimeout(() => createStars(), 200);
 });
 
-// 🎯 VIEWPORT HEIGHT FIX FOR MOBILE (100vh issue)
+// 🎯 VIEWPORT HEIGHT FIX
 function setVH() {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 }
-
 setVH();
 window.addEventListener("resize", setVH);
 window.addEventListener("orientationchange", setVH);
+
+// 📧 CONTACT FORM HANDLING - FUNCTIONAL
+const contactForm = document.querySelector(".contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = contactForm.querySelector(".send-btn");
+    const originalText = submitBtn.innerHTML;
+    const formData = new FormData(contactForm);
+    
+    if (!formData.get('name') || !formData.get('email') || !formData.get('message')) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+    
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (response.ok) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Sent Successfully!';
+        submitBtn.style.background = 'linear-gradient(90deg, #00ff88, #00cc66)';
+        setTimeout(() => {
+          contactForm.reset();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.background = '';
+        }, 2000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      submitBtn.innerHTML = '<i class="fa-solid fa-exclamation-triangle"></i> Failed to Send';
+      submitBtn.style.background = 'linear-gradient(90deg, #ff6b6b, #ee5a6f)';
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        submitBtn.style.background = '';
+      }, 3000);
+      console.error('Error:', error);
+    }
+  });
+}
+
+// 🎯 TECH STACK & SOFTWARE MODAL FUNCTIONALITY
+const techStackBtn = document.getElementById('openStackModal');
+const softwareBtn = document.getElementById('openSoftwareModal');
+const techStackModal = document.getElementById('techStackModal');
+const softwareModal = document.getElementById('softwareModal');
+
+function closeModal(modal) {
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  }
+}
+
+if (techStackBtn && techStackModal) {
+  techStackBtn.addEventListener('click', () => {
+    techStackModal.classList.add('active');
+    document.body.classList.add('modal-open');
+  });
+}
+
+if (softwareBtn && softwareModal) {
+  softwareBtn.addEventListener('click', () => {
+    softwareModal.classList.add('active');
+    document.body.classList.add('modal-open');
+  });
+}
+
+document.querySelectorAll('.modal-close').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const modal = e.target.closest('.modal-overlay');
+    closeModal(modal);
+  });
+});
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      closeModal(overlay);
+    }
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+      closeModal(modal);
+    });
+  }
+});
