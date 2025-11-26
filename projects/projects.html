@@ -1,31 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Snehit</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Outfit:wght@100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./projects.css" />
 </head>
+
 <body>
+  <nav class="navbar">
+    <a href="../index.html" class="logo">
+      <img src="https://cdn.jsdelivr.net/npm/feather-icons/dist/icons/arrow-left.svg" alt="Logo" width="40" height="40"
+        style="filter: invert(1); color: #0ff" />
+    </a>
 
-<section id="all-projects">
-  <h1 class="page-title">My <span>Projects</span></h1>
-  <p class="page-sub">Showcase of development & creativity 🚀</p>
+    <!-- Hamburger Menu Button -->
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="projects-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-  <div class="projects-container">
-
-    <!-- Duplicate this block for each project -->
-    <div class="project-card">
-      <img src="assets/projects/project1.png" class="project-img" alt="Project">
-      <h3>Dorofi</h3>
-      <p>Focus & Compete Together</p>
-      <a href="#" class="btn visit">Visit Site</a>
-      <a href="#" class="btn source">Source Code</a>
+    <div id="projects-nav" class="nav-menu">
+      <button id="tab-minis" type="button" class="tab-btn" role="tab" aria-controls="minis" data-tab="minis">
+        Minis
+      </button>
+      <button id="tab-projects" type="button" class="tab-btn" role="tab" aria-controls="projects" data-tab="projects">
+        Projects
+      </button>
+      <button id="tab-uis" type="button" class="tab-btn" role="tab" aria-controls="uis" data-tab="uis">
+        UIs
+      </button>
+      <button id="tab-experiences" type="button" class="tab-btn" role="tab" aria-controls="experiences"
+        data-tab="experiences">
+        Experiences
+      </button>
     </div>
-    <!-- End block -->
+  </nav>
 
-  </div>
-</section>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Mini Projects Tab -->
+    <div class="tab-content active" id="minis" role="tabpanel" aria-labelledby="tab-minis">
+      <div class="section-header">
+        <h1>Mini <span>Projects</span></h1>
+        <p>Small utility apps using fundamental development skills</p>
+        <div class="underline"></div>
+      </div>
 
+      <!--dummy project card-->
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-cog"></i>
+          </div>
+          <div class="project-info">
+            <h3>Updating soon...</h3>
+            <p>let me find them quickly</p>
+            <div class="project-tags">
+              <span class="tag">???</span>
+              <span class="tag">???</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
+        <!--dummy project card-->
+      </div>
+    </div>
+
+    <!-- Projects Tab -->
+    <div class="tab-content" id="projects" role="tabpanel" aria-labelledby="tab-projects">
+      <div class="section-header">
+        <h1><!--text-->Major <span>Projects</span></h1>
+        <p>I wonder what ??</p>
+        <div class="underline"></div>
+      </div>
+      <div class="coming-soon">
+        <i class="fas fa-rocket"></i>
+        <h2>Coming Soon</h2>
+        <p>Full-scale projects</p>
+      </div>
+    </div>
+
+    <!-- UIs Tab -->
+    <div class="tab-content" id="uis" role="tabpanel" aria-labelledby="tab-uis">
+      <div class="section-header">
+        <h1>
+          <!--text-->
+          <span>Updating soon...</span>
+        </h1>
+        <p>User interface designs and prototypes</p>
+        <div class="underline"></div>
+      </div>
+      <div class="coming-soon">
+        <i class="fas fa-paint-brush"></i>
+        <h2>Coming Soon</h2>
+        <p>UI/UX designs made by me...</p>
+      </div>
+    </div>
+
+    <!-- Experiences Tab -->
+    <div class="tab-content" id="experiences" role="tabpanel" aria-labelledby="tab-experiences">
+      <div class="section-header">
+        <h1>
+          <!--text-->
+          Work <span>Experiences</span>
+        </h1>
+        <p>Professional experience and internships</p>
+        <div class="underline"></div>
+      </div>
+      <div class="coming-soon">
+        <i class="fas fa-briefcase"></i>
+        <h2>Coming Soon</h2>
+        <p>Finding Experience 😅</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="comet" style="top: 10%; left: 20%; animation-delay: 1s"></div>
+  <div class="comet" style="top: 50%; left: 80%; animation-delay: 2.5s"></div>
+  <div class="comet" style="top: 75%; left: 30%; animation-delay: 4s"></div>
+  <script src="./projects.js" defer></script>
 </body>
+
 </html>
