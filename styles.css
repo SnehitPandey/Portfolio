@@ -96,6 +96,18 @@ body {
   pointer-events: none;
   z-index: 0;
   animation: floatAstro 6s ease-in-out infinite;
+  /* ... your existing styles ... */
+    
+    /* 1. Tell browser this element changes */
+    will-change: transform;
+    
+    /* 2. Force GPU usage with 'translateZ' or 'translate3d' */
+    transform: translateZ(0); 
+    
+    /* 3. Smooth edges */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 @keyframes floatAstro {
@@ -531,7 +543,7 @@ section {
 .projects-nav-btn {
   display: flex;
   justify-content: center;
-  margin-top: -30px;
+  margin-top: -20px;
 }
 
 .btn-projects {
