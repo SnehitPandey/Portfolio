@@ -98,10 +98,11 @@ body {
     z-index: 1;
     pointer-events: none;
     
-    /* Promote to own compositing layer to prevent jitter */
+    /* Lock to fixed pixel grid and promote to compositing layer */
     transform: translate3d(0, -50%, 0);
-    will-change: transform;
+    will-change: auto;
     transform-origin: center center;
+    image-rendering: crisp-edges;
 }
 
 /* 2. THE IMAGE (Handles Animation Only) */
@@ -111,27 +112,31 @@ body {
     height: auto;
     display: block;
     
-    /* The Animation - Purely GPU based */
-    animation: floatAstro 6s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+    /* Use linear timing to avoid easing artifacts; use steps() for integer-only motion */
+    animation: floatAstro 6s steps(60, end) infinite;
     
-    /* Force GPU Rendering */
-    will-change: transform;
+    /* Force GPU Rendering with strict settings */
+    will-change: auto;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    perspective: 1000;
-    -webkit-perspective: 1000;
+    image-rendering: crisp-edges;
 }
 
-/* 3. THE ANIMATION (Simple & Clean) */
-/* Since the container handles the centering, this just moves up/down */
+/* 3. THE ANIMATION (Discrete Steps for Integer Motion) */
+/* Using steps() ensures only whole-pixel movements, avoiding fractional rounding jitter */
 @keyframes floatAstro {
     0%, 100% {
         transform: translate3d(0, 0, 0);
     }
+    25% {
+        transform: translate3d(4px, -10px, 0);
+    }
     50% {
-        /* Move 10px Right, 20px Up */
         transform: translate3d(10px, -20px, 0);
+    }
+    75% {
+        transform: translate3d(4px, -10px, 0);
     }
 }
 
