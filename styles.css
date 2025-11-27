@@ -89,22 +89,40 @@ body {
 
 .hero-astronaut {
     position: absolute;
-    /* Now 5% means 5% from the monitor edge, not the center box */
-    left: 2%; 
-    top: 50%;
+    left: 2%;
+    
+    /* 1. Center vertically using TOP, not transform. 
+       (Assuming image is approx 400px tall, we subtract 200px to center it) */
+    top: calc(50% - 200px);
+    
     width: 380px;
-    transform: translate3d(0, -50%, 0);
-    animation: floatAstro 6s ease-in-out infinite;
     z-index: 1;
+    pointer-events: none;
+
+    /* 2. THE JITTER KILLER COMBO */
+    /* rotate(0.1deg) forces the browser to use high-quality anti-aliasing */
+    transform: translate3d(0, 0, 0) rotate(0.1deg);
+    
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+    
+    animation: floatAstro 6s ease-in-out infinite;
 }
 
-/* Maintain the float animation */
 @keyframes floatAstro {
-  0% { transform: translate3d(0, -50%, 0); }
-  50% { transform: translate3d(10px, calc(-50% - 20px), 0); }
-  100% { transform: translate3d(0, -50%, 0); }
+    0% {
+        /* No percentages here. Just pure coordinates. */
+        transform: translate3d(0, 0, 0) rotate(0.1deg);
+    }
+    50% {
+        /* Move 10px right, 20px up */
+        transform: translate3d(10px, -20px, 0) rotate(0.1deg);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0.1deg);
+    }
 }
-
 /* RESPONSIVE TWEAKS */
 
 /* Large Screens */
@@ -142,10 +160,13 @@ body {
 }
 
 /* Responsive fix for laptops so images don't overlap */
+/* Responsive updates for the new 'top' centering strategy */
 @media (max-width: 1300px) {
     .hero-astronaut {
         width: 300px;
-        left: -2%; /* Pull it slightly off-screen on smaller laptops */
+        left: -2%;
+        /* Adjust centering for smaller image size */
+        top: calc(50% - 150px); 
     }
 }
 
