@@ -89,31 +89,51 @@ body {
 
 .hero-astronaut {
   position: absolute;
-  left: 5%;
-  top: 45%;
+  left: 2%;
+  top: 50%;
   width: 340px;
   transform: translateY(-50%);
   pointer-events: none;
   z-index: 0;
+  /* Smooth animation - prevents jitter */
   animation: floatAstro 6s ease-in-out infinite;
-  /* ... your existing styles ... */
-    
-    /* 1. Tell browser this element changes */
-    will-change: transform;
-    
-    /* 2. Force GPU usage with 'translateZ' or 'translate3d' */
-    transform: translateZ(0); 
-    
-    /* 3. Smooth edges */
-    -webkit-font-smoothing: antialiased;
-    backface-visibility: hidden;
-    perspective: 1000px;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @keyframes floatAstro {
-  0% { transform: translateY(-50%) translateX(0); }
-  50% { transform: translateY(-55%) translateX(10px); }
-  100% { transform: translateY(-50%) translateX(0); }
+  0% { 
+    transform: translateY(-50%) translateX(0); 
+  }
+  50% { 
+    transform: translateY(-55%) translateX(10px); 
+  }
+  100% { 
+    transform: translateY(-50%) translateX(0); 
+  }
+}
+
+/* Desktop breakpoints with smooth transforms */
+@media (min-width: 1400px) {
+  .hero-astronaut {
+    width: 350px;
+    left: 5%;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1399px) {
+  .hero-astronaut {
+    width: 300px;
+    left: 3%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-astronaut {
+    width: 250px;
+    left: 2%;
+  }
 }
 
 .navbar {
@@ -158,9 +178,6 @@ body {
 .logo:hover h1 {
   color: #fff;
   text-shadow: 0 0 10px #00faff;
-}
-.mobile-resume-btn {
-  display: none !important;
 }
 
 .nav-menu {
@@ -941,9 +958,8 @@ body {
 
 /* Hide mobile resume button on desktop */
 .mobile-resume-btn {
-  display: none;
+  display: none !important;
 }
-
 .nav-menu li {
   font-size: 15px;
   transition: 0.25s;
@@ -987,24 +1003,49 @@ body {
   width: 100%;
 }
 
-.hero-astronaut {
-  position: absolute;
-  left: -70%;
-  top: 50%;
-  width: 340px;
-  height: auto;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 0;
-  animation: floatAstro 6s ease-in-out infinite;
+/* Mobile - Different animation */
+@media (max-width: 768px) {
+  .hero-astronaut {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 220px;
+    height: auto;
+    margin-bottom: 20px;
+    transform: none;
+    animation: floatMobile 5s ease-in-out infinite;
+    order: -1;
+    /* Prevent jitter on mobile */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  @keyframes floatMobile {
+    0%, 100% { 
+      transform: translateZ(0) translateY(0); 
+    }
+    50% { 
+      transform: translateZ(0) translateY(-20px); 
+    }
+  }
 }
 
-@keyframes floatAstro {
-  0% { transform: translateY(-50%) translateX(0); }
-  50% { transform: translateY(-55%) translateX(10px); }
-  100% { transform: translateY(-50%) translateX(0); }
+@media (max-width: 576px) {
+  .hero-astronaut {
+    width: 170px;
+    margin-bottom: -5px;
+  }
 }
 
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-astronaut {
+    width: 120px;
+    margin-bottom: 0;
+  }
+}
 /* ========== TABLET STYLES (768px - 1024px) ========== */
 @media (max-width: 1024px) and (min-width: 769px) {
   .hero {
@@ -1115,6 +1156,8 @@ body {
   }
 
   /* Mobile-only Resume Button in Nav */
+  @media (max-width: 768px) {
+  /* Mobile-only Resume Button in Nav */
   .nav-menu::after {
     content: '';
     width: 80%;
@@ -1123,14 +1166,15 @@ body {
     margin: 10px 0;
   }
 
+
   .mobile-resume-btn {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     gap: 8px;
     padding: 12px 24px;
     border-radius: 50px;
-    background: linear-gradient(45deg, rgb(20, 222, 124) 0%, rgb(20, 222, 124) 21%,rgb(25, 190, 119) 21%, rgb(25, 190, 119) 37%,rgb(30, 158, 113) 37%, rgb(30, 158, 113) 46%,rgb(35, 126, 108) 46%, rgb(35, 126, 108) 53%,rgb(39, 94, 103) 53%, rgb(39, 94, 103) 59%,rgb(44, 62, 97) 59%, rgb(44, 62, 97) 77%,rgb(49, 30, 92) 77%, rgb(49, 30, 92) 100%);
+    background: linear-gradient(45deg, rgb(20, 222, 124) 0%, rgb(20, 222, 124) 21%, rgb(25, 190, 119) 21%, rgb(25, 190, 119) 37%, rgb(30, 158, 113) 37%, rgb(30, 158, 113) 46%, rgb(35, 126, 108) 46%, rgb(35, 126, 108) 53%, rgb(39, 94, 103) 53%, rgb(39, 94, 103) 59%, rgb(44, 62, 97) 59%, rgb(44, 62, 97) 77%, rgb(49, 30, 92) 77%, rgb(49, 30, 92) 100%);
     color: #fff;
     text-decoration: none;
     font-size: 0.95rem;
@@ -1147,16 +1191,18 @@ body {
     animation-delay: 0.5s;
   }
 
-  .mobile-resume-btn:hover,
+
+ .mobile-resume-btn:hover,
   .mobile-resume-btn:active {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   }
 
-  .mobile-resume-btn i {
+
+   .mobile-resume-btn i {
     font-size: 1rem;
   }
-
+}
   /* Menu overlay */
   body.menu-open {
     overflow: hidden;
