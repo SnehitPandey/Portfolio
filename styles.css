@@ -98,11 +98,8 @@ body {
     z-index: 1;
     pointer-events: none;
     
-    /* Lock to fixed pixel grid and promote to compositing layer */
-    transform: translate3d(0, -50%, 0);
-    will-change: auto;
-    transform-origin: center center;
-    image-rendering: crisp-edges;
+    /* Center the container perfectly without animation interference */
+    transform: translateY(-50%); 
 }
 
 /* 2. THE IMAGE (Handles Animation Only) */
@@ -112,31 +109,27 @@ body {
     height: auto;
     display: block;
     
-    /* Use linear timing to avoid easing artifacts; use steps() for integer-only motion */
-    animation: floatAstro 6s steps(60, end) infinite;
+    /* The Animation - Purely GPU based */
+    animation: floatAstro 6s ease-in-out infinite;
     
-    /* Force GPU Rendering with strict settings */
-    will-change: auto;
+    /* Force GPU Rendering */
+    will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    image-rendering: crisp-edges;
 }
 
-/* 3. THE ANIMATION (Discrete Steps for Integer Motion) */
-/* Using steps() ensures only whole-pixel movements, avoiding fractional rounding jitter */
+/* 3. THE ANIMATION (Simple & Clean) */
+/* Since the container handles the centering, this just moves up/down */
 @keyframes floatAstro {
-    0%, 100% {
+    0% {
         transform: translate3d(0, 0, 0);
     }
-    25% {
-        transform: translate3d(4px, -10px, 0);
-    }
     50% {
+        /* Move 10px Right, 20px Up */
         transform: translate3d(10px, -20px, 0);
     }
-    75% {
-        transform: translate3d(4px, -10px, 0);
+    100% {
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -148,14 +141,14 @@ body {
 @media (min-width: 1400px) {
     .astro-container {
         width: 420px;
-        left: 2%;
+        left: 7%;
     }
 }
 
 @media (max-width: 1300px) {
     .astro-container {
         width: 300px;
-        left: -2%;
+        left: -5%;
     }
 }
 
@@ -185,7 +178,7 @@ body {
 @media (max-width: 1300px) {
     .hero-astronaut {
         width: 300px;
-        left: -2%;
+        left: -5%;
         /* Adjust centering for smaller image size */
         top: calc(50% - 150px); 
     }
