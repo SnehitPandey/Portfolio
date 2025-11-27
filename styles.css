@@ -92,14 +92,16 @@ body {
 .astro-container {
     position: absolute;
     top: 50%; /* Center vertically */
-    left: 2%; /* Position from left */
+    left: 5%; /* Position from left */
     width: 380px; /* Width is handled here now */
     height: auto;
     z-index: 1;
     pointer-events: none;
     
-    /* Center the container perfectly without animation interference */
-    transform: translateY(-50%); 
+    /* Promote to own compositing layer to prevent jitter */
+    transform: translate3d(0, -50%, 0);
+    will-change: transform;
+    transform-origin: center center;
 }
 
 /* 2. THE IMAGE (Handles Animation Only) */
@@ -110,26 +112,26 @@ body {
     display: block;
     
     /* The Animation - Purely GPU based */
-    animation: floatAstro 6s ease-in-out infinite;
+    animation: floatAstro 6s cubic-bezier(0.42, 0, 0.58, 1) infinite;
     
     /* Force GPU Rendering */
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
 }
 
 /* 3. THE ANIMATION (Simple & Clean) */
 /* Since the container handles the centering, this just moves up/down */
 @keyframes floatAstro {
-    0% {
+    0%, 100% {
         transform: translate3d(0, 0, 0);
     }
     50% {
         /* Move 10px Right, 20px Up */
         transform: translate3d(10px, -20px, 0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
     }
 }
 
