@@ -88,51 +88,65 @@ body {
 }
 
 .hero-astronaut {
-  position: absolute;
-  /* Default position for desktop (relative to the screen now!) */
-  left: 10%; 
-  top: 45%;
-  width: 340px;
-  
-  /* HARDWARE ACCELERATION ON */
-  transform: translate3d(0, -50%, 0); 
-  will-change: transform;
-  
-  z-index: 0;
-  pointer-events: none;
-  
-  /* The optimized animation */
-  animation: floatAstro 6s ease-in-out infinite;
+    position: absolute;
+    /* Now 5% means 5% from the monitor edge, not the center box */
+    left: 2%; 
+    top: 50%;
+    width: 380px;
+    transform: translate3d(0, -50%, 0);
+    animation: floatAstro 6s ease-in-out infinite;
+    z-index: 1;
 }
 
-/* JITTER FIX: 
-   We use translate3d to force GPU rendering.
-   We use PIXELS (px) instead of % for the movement to stop sub-pixel rounding errors.
-*/
+/* Maintain the float animation */
 @keyframes floatAstro {
-  0% {
-    transform: translate3d(0, -50%, 0);
-  }
-  50% {
-    /* Move up 20px and right 10px */
-    transform: translate3d(10px, calc(-50% - 20px), 0);
-  }
-  100% {
-    transform: translate3d(0, -50%, 0);
-  }
+  0% { transform: translate3d(0, -50%, 0); }
+  50% { transform: translate3d(10px, calc(-50% - 20px), 0); }
+  100% { transform: translate3d(0, -50%, 0); }
 }
 
-/* Keep your media queries, they will now work correctly! */
+/* RESPONSIVE TWEAKS */
+
+/* Large Screens */
 @media (min-width: 1400px) {
-  .hero-astronaut { width: 350px; left: 5%; }
+  .hero-astronaut { 
+    width: 400px; 
+    left: -5%; 
+  }
 }
 
+/* Laptops */
 @media (min-width: 1025px) and (max-width: 1399px) {
-  .hero-astronaut { width: 300px; left: 3%; }
+  .hero-astronaut { 
+    width: 330px; 
+    left: -12%; /* Keep it pulled back */
+  }
 }
 
+/* Tablets (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .hero-astronaut { width: 250px; left: 2%; }
+  .hero-astronaut { 
+    width: 280px; 
+    left: -6%; 
+  }
+}
+
+/* Add this new rule for Desktop only */
+@media (min-width: 1025px) {
+  .hero-content {
+    /* Pushes the text center 100px to the right to avoid the astronaut */
+    margin-left: 180px; 
+    position: relative;
+    z-index: 2; /* Ensures text goes OVER the astronaut if they do touch */
+  }
+}
+
+/* Responsive fix for laptops so images don't overlap */
+@media (max-width: 1300px) {
+    .hero-astronaut {
+        width: 300px;
+        left: -2%; /* Pull it slightly off-screen on smaller laptops */
+    }
 }
 
 .navbar {
@@ -258,6 +272,22 @@ section {
   text-align: center;
   position: relative;
   z-index: 1;
+}
+
+.hero {
+    width: 100% !important; 
+    max-width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow: hidden; /* Prevents scrollbar if astro hangs off edge */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    /* Since hero is now 100%, we need to ensure text doesn't touch edges */
+    max-width: 800px; 
+    margin: 0 auto; /* Keeps text perfectly centered */
 }
 
 .hero-content h1 {
