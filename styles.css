@@ -89,51 +89,50 @@ body {
 
 .hero-astronaut {
   position: absolute;
-  left: 2%;
-  top: 50%;
+  /* Default position for desktop (relative to the screen now!) */
+  left: 10%; 
+  top: 45%;
   width: 340px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 0;
-  /* Smooth animation - prevents jitter */
-  animation: floatAstro 6s ease-in-out infinite;
+  
+  /* HARDWARE ACCELERATION ON */
+  transform: translate3d(0, -50%, 0); 
   will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  
+  z-index: 0;
+  pointer-events: none;
+  
+  /* The optimized animation */
+  animation: floatAstro 6s ease-in-out infinite;
 }
 
+/* JITTER FIX: 
+   We use translate3d to force GPU rendering.
+   We use PIXELS (px) instead of % for the movement to stop sub-pixel rounding errors.
+*/
 @keyframes floatAstro {
-  0% { 
-    transform: translateY(-50%) translateX(0); 
+  0% {
+    transform: translate3d(0, -50%, 0);
   }
-  50% { 
-    transform: translateY(-55%) translateX(10px); 
+  50% {
+    /* Move up 20px and right 10px */
+    transform: translate3d(10px, calc(-50% - 20px), 0);
   }
-  100% { 
-    transform: translateY(-50%) translateX(0); 
+  100% {
+    transform: translate3d(0, -50%, 0);
   }
 }
 
-/* Desktop breakpoints with smooth transforms */
+/* Keep your media queries, they will now work correctly! */
 @media (min-width: 1400px) {
-  .hero-astronaut {
-    width: 350px;
-    left: 5%;
-  }
+  .hero-astronaut { width: 350px; left: 5%; }
 }
 
 @media (min-width: 1025px) and (max-width: 1399px) {
-  .hero-astronaut {
-    width: 300px;
-    left: 3%;
-  }
+  .hero-astronaut { width: 300px; left: 3%; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .hero-astronaut {
-    width: 250px;
-    left: 2%;
-  }
+  .hero-astronaut { width: 250px; left: 2%; }
 }
 
 .navbar {
