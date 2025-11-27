@@ -87,68 +87,82 @@ body {
   100% { color:#fff; text-shadow:0 0 0px transparent; }
 }
 
-.hero-astronaut {
+/* 1. THE CONTAINER (Handles Position Only) */
+/* It sits still, so the browser doesn't have to recalculate layout */
+.astro-container {
     position: absolute;
-    left: 2%;
-    
-    /* 1. Center vertically using TOP, not transform. 
-       (Assuming image is approx 400px tall, we subtract 200px to center it) */
-    top: calc(50% - 200px);
-    
-    width: 380px;
+    top: 50%; /* Center vertically */
+    left: 2%; /* Position from left */
+    width: 380px; /* Width is handled here now */
+    height: auto;
     z-index: 1;
     pointer-events: none;
-
-    /* 2. THE JITTER KILLER COMBO */
-    /* rotate(0.1deg) forces the browser to use high-quality anti-aliasing */
-    transform: translate3d(0, 0, 0) rotate(0.1deg);
     
-    backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: transform;
-    
-    animation: floatAstro 6s ease-in-out infinite;
+    /* Center the container perfectly without animation interference */
+    transform: translateY(-50%); 
 }
 
+/* 2. THE IMAGE (Handles Animation Only) */
+/* It floats inside the container */
+.hero-astronaut {
+    width: 100%; /* Take full width of container */
+    height: auto;
+    display: block;
+    
+    /* The Animation - Purely GPU based */
+    animation: floatAstro 6s ease-in-out infinite;
+    
+    /* Force GPU Rendering */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+/* 3. THE ANIMATION (Simple & Clean) */
+/* Since the container handles the centering, this just moves up/down */
 @keyframes floatAstro {
     0% {
-        /* No percentages here. Just pure coordinates. */
-        transform: translate3d(0, 0, 0) rotate(0.1deg);
+        transform: translate3d(0, 0, 0);
     }
     50% {
-        /* Move 10px right, 20px up */
-        transform: translate3d(10px, -20px, 0) rotate(0.1deg);
+        /* Move 10px Right, 20px Up */
+        transform: translate3d(10px, -20px, 0);
     }
     100% {
-        transform: translate3d(0, 0, 0) rotate(0.1deg);
+        transform: translate3d(0, 0, 0);
     }
 }
-/* RESPONSIVE TWEAKS */
 
-/* Large Screens */
+/* =========================================
+   RESPONSIVE UPDATES
+   Target the CONTAINER width/left, not the image
+   ========================================= */
+
 @media (min-width: 1400px) {
-  .hero-astronaut { 
-    width: 400px; 
-    left: -5%; 
-  }
+    .astro-container {
+        width: 420px;
+        left: 2%;
+    }
 }
 
-/* Laptops */
-@media (min-width: 1025px) and (max-width: 1399px) {
-  .hero-astronaut { 
-    width: 330px; 
-    left: -12%; /* Keep it pulled back */
-  }
+@media (max-width: 1300px) {
+    .astro-container {
+        width: 300px;
+        left: -2%;
+    }
 }
 
-/* Tablets (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .hero-astronaut { 
-    width: 280px; 
-    left: -6%; 
-  }
+@media (max-width: 768px) {
+    /* Reset for mobile if needed, or hide */
+    .astro-container {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        width: 220px;
+        margin: 0 auto 20px auto;
+    }
 }
-
 /* Add this new rule for Desktop only */
 @media (min-width: 1025px) {
   .hero-content {
