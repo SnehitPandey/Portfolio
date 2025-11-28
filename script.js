@@ -214,12 +214,38 @@ if (isTouchDevice()) {
   });
 }
 
-// 🎨 REDUCE MOTION FOR ACCESSIBILITY
+// 🎨 REDUCE MOTION FOR ACCESSIBILITY - FIXED
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  document.querySelectorAll("*").forEach(el => {
-    el.style.animationDuration = "0.01ms";
-    el.style.transitionDuration = "0.01ms";
-  });
+  document.body.classList.add('reduce-motion');
+  
+  // Only target non-essential animations
+  const style = document.createElement('style');
+  style.textContent = `
+    .reduce-motion .reveal,
+    .reduce-motion .nav-menu a::after,
+    .reduce-motion .modal-container,
+    .reduce-motion .tech-card,
+    .reduce-motion .socials .icon,
+    .reduce-motion .footer-icon {
+      animation: none !important;
+      transition: opacity 0.15s ease !important;
+    }
+    
+    /* Keep astronaut animation smooth */
+    .reduce-motion .hero-astronaut {
+      animation: floatAstro 6s ease-in-out infinite !important;
+    }
+    
+    /* Keep essential animations */
+    .reduce-motion .star {
+      animation-duration: 2s !important;
+    }
+    
+    .reduce-motion .comet {
+      animation-duration: 3.5s !important;
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 // 🔄 ORIENTATION CHANGE
@@ -236,7 +262,7 @@ setVH();
 window.addEventListener("resize", setVH);
 window.addEventListener("orientationchange", setVH);
 
-// 📧 CONTACT FORM HANDLING - FUNCTIONAL
+// 🔧 CONTACT FORM HANDLING - FUNCTIONAL
 const contactForm = document.querySelector(".contact-form");
 if (contactForm) {
   contactForm.addEventListener("submit", async (e) => {
